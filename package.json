@@ -7,7 +7,9 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
-    "mongoose": "^5.9.7",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.18",
+    "nodemon": "^2.0.4",
     "simplemde": "^1.11.2"
   },
   "devDependencies": {},

@@ -4,7 +4,9 @@ const Post_m = require("../models/post_m");
 let route = express.Router();
 
 route.get("/posts", async (req, res) => {
+  console.log("data search");
   let datas = await Post_m.find();
+  console.log("data search");
 
   res.render("postlist", { articles: datas });
 });

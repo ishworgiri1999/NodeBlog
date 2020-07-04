@@ -20,7 +20,8 @@
                     <div class="card-body">
 
                       <div class="card-subtitle text-muted mb-2"><%=element.date.toLocaleDateString()%></div>
-                      <p class="card-text"><%=element.markdown %> </p>
+                        <!-- process first for html render  -->
+                      <p class="card-text"><%-element.markdown %> </p>
                     </div>
                   </div>
                  
