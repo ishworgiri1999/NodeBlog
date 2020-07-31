@@ -15,43 +15,35 @@
       <div class="row">
         <div class="col-8">
 
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% articles.forEach(element => { %>
+                <tr>
+                  <th scope="row"><%=element._id%></th>
+                  <td><%=element.title%></td>
+                  <td><%=element.date.toLocaleDateString()%></td>
+                  <td>
+                    <a href="/posts/view/<%=element._id%>" class="btn btn-primary">EDIT</a><br>
+                    <a href="/posts/view/<%=element._id%>" class="btn btn-primary">DELETE</a>
+                  
+                  </td>
+                </tr>
+                <% }); %>
 
-          <ul class="list-group">
-
-            <% articles.forEach(element => { %>
-
-                <li class="list-group-item">
-
-                  <div class="w-75 p-3 float-left">
-                    <div class="card-header ">
-                      <b>
-                      <%=element.title%>
-                      </b>
-                      
-                      <div class="card-subtitle text-muted mb-2">
-                        <%=element.date.toLocaleDateString()%>
-                      </div>
-                    </div>
-                    
-                  </div>
-                    
-                    <div class="w-25 p-3 float-right">
-                     
-                      <a href="/posts/view/<%=element._id%>" class="btn btn-primary">EDIT</a><br>
-                      <a href="/posts/view/<%=element._id%>" class="btn btn-primary">DELETE</a>
-
-                    </div>
+              </tbody>
+            </table>     
       
 
 
-                </li>
-           
-            <% }); %>
-
-
-            
-
-          </ul>
+              
 
       </div>
       <div class="col-4">
