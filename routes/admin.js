@@ -4,22 +4,22 @@ const Post_m = require("../models/post_m");
 let route = express.Router();
 
 route.get("/posts", async (req, res) => {
-  console.log("data search");
-  let datas = await Post_m.find();
-  console.log("data search");
+  //console.log("data search");
+  let datas = await Post_m.find().sort({date:-1});
+  console.log("data search:admin");
 
-  res.render("postlist", { articles: datas });
+  res.render("admin_posts", { articles: datas });
 });
 
 route.get("/posts/new", (req, res) => {
-  res.render("new");
+  res.render("new_post");
 });
 
 route.get("/", (req, res) => {
-  res.send("admin panel");
+  res.render("admin")
 });
 
-route.get("/404", (req, res) => {
+route.get("/:whatever", (req, res) => {
   res.send("error panel");
 });
 
@@ -41,4 +41,8 @@ route.post("/posts", async (req, res) => {
   }
 });
 
+//The 404 Route (ALWAYS Keep this as the last route)
+route.get('*', function(req, res){
+  res.status(404).send("What???");
+});
 module.exports = route;

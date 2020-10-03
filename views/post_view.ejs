@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%- include('partials/css'); %>
 
-    <title>Hello</title>
+    <title><%=element.title%></title>
   </head>
   <body style="background-color: white;">
     <%- include('partials/nav'); %>
@@ -21,6 +21,10 @@
 
                       <div class="card-subtitle text-muted mb-2"><%=element.date.toLocaleDateString()%></div>
                         <!-- process first for html render  -->
+                        <div class="alert alert-secondary" role="alert">
+                          <%-element.description %>
+                        </div>
+
                       <p class="card-text"><%-element.markdown %> </p>
                     </div>
                   </div>

@@ -18,7 +18,7 @@ const app = express();
 app.set("view engine", "ejs"); //viewengine as ejs
 app.use(express.urlencoded({ extended: false })); //for
 
-const port = 8080; //for port
+const port = 80; //for port
 
 mongoose.connect(
   process.env.DB_CONNECTION,
@@ -26,12 +26,17 @@ mongoose.connect(
   () => console.log("db connected")
 );
 
+app.use(function (req, res, next) {
+  console.log(req.headers.referer)
+  next();
+});
+
 //middleware for handling routes
 app.use("/posts", posts);
 app.use("/admin", admin);
 
 app.get("/:what", (req, res) => res.render("404"));
 
-app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
+app.get("/", (req, res) => res.render("home"));
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+console.log(app.listen(port, () => console.log(`Example app listening on port ${port}!`)).address());
