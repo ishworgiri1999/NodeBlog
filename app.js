@@ -18,7 +18,7 @@ const app = express();
 app.set("view engine", "ejs"); //viewengine as ejs
 app.use(express.urlencoded({ extended: false })); //for
 
-const port = 80; //for port
+const port = process.env.PORT || 8000; //for port
 
 mongoose.connect(
   process.env.DB_CONNECTION,
