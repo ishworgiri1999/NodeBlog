@@ -1,7 +1,19 @@
 const express = require("express");
 const Post_m = require("../models/post_m");
+const User_m = require("../models/user_m");
 
 let route = express.Router();
+
+
+
+route.use((req,res,next)=>{
+  if (req.session.username){
+    next();
+  }else{
+    res.redirect("/login");
+  }
+})
+
 
 route.get("/posts", async (req, res) => {
   //console.log("data search");
@@ -13,6 +25,27 @@ route.get("/posts", async (req, res) => {
 
 route.get("/posts/new", (req, res) => {
   res.render("new_post");
+});
+
+
+
+route.get("/newuser", (req, res) => {
+  res.render("new_user");
+});
+
+
+route.post("/newuser", async (req, res) => {
+  let user = new User_m({
+    name: req.body.name,
+    username: req.body.username,
+    password: req.body.password,
+  });
+  try {
+    usersaved = await user.save();
+    res.redirect("/login?username="+usersaved.username);
+  } catch (e) {
+    res.redirect("/404");
+  }
 });
 
 route.get("/", (req, res) => {
