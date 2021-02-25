@@ -31,8 +31,8 @@
                   <td><%=element.title%></td>
                   <td><%=element.date.toLocaleDateString()%></td>
                   <td>
-                    <a href="/posts/view/<%=element._id%>" class="btn btn-primary">EDIT</a><br>
-                    <a href="/posts/view/<%=element._id%>" class="btn btn-primary">DELETE</a>
+                    <a href="/admin/posts/delete/?pid=<%=element._id%>" class="btn btn-primary">DELETE</a><br>
+                    <a href="/posts/view/<%=element._id%>" class="btn btn-primary">EDIT</a>
                   
                   </td>
                 </tr>

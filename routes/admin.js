@@ -4,20 +4,17 @@ const User_m = require("../models/user_m");
 
 let route = express.Router();
 
-
-
-route.use((req,res,next)=>{
-  if (req.session.username){
+route.use((req, res, next) => {
+  if (req.session.username) {
     next();
-  }else{
+  } else {
     res.redirect("/login");
   }
-})
-
+});
 
 route.get("/posts", async (req, res) => {
   //console.log("data search");
-  let datas = await Post_m.find().sort({date:-1});
+  let datas = await Post_m.find().sort({ date: -1 });
   console.log("data search:admin");
 
   res.render("admin_posts", { articles: datas });
@@ -27,12 +24,9 @@ route.get("/posts/new", (req, res) => {
   res.render("new_post");
 });
 
-
-
 route.get("/newuser", (req, res) => {
   res.render("new_user");
 });
-
 
 route.post("/newuser", async (req, res) => {
   let user = new User_m({
@@ -42,14 +36,14 @@ route.post("/newuser", async (req, res) => {
   });
   try {
     usersaved = await user.save();
-    res.redirect("/login?username="+usersaved.username);
+    res.redirect("/login?username=" + usersaved.username);
   } catch (e) {
     res.redirect("/404");
   }
 });
 
 route.get("/", (req, res) => {
-  res.render("admin")
+  res.render("admin");
 });
 
 route.get("/:whatever", (req, res) => {
@@ -58,6 +52,25 @@ route.get("/:whatever", (req, res) => {
 
 route.get("/posts/sucess", (req, res) => {
   res.send("sucess panel");
+});
+
+route.get("/posts/delete", async (req, res) => {
+  let posttodelete = req.query.pid;
+  if (!req.query.pid) return res.redirect("/admin/posts?notdefined=true");
+  
+  var success=0;
+  let query = await Post_m.findByIdAndDelete(posttodelete, (err,post)=>{
+    if(err){
+      success=1;
+    }else{
+      success=1
+    }
+  });
+
+  if (!success) {
+    return res.redirect("/admin/posts?qfailed=true");
+  }
+  return res.redirect("/admin/posts?delsucess=true");
 });
 
 route.post("/posts", async (req, res) => {
@@ -75,7 +88,7 @@ route.post("/posts", async (req, res) => {
 });
 
 //The 404 Route (ALWAYS Keep this as the last route)
-route.get('*', function(req, res){
+route.get("*", function (req, res) {
   res.status(404).send("What???");
 });
 module.exports = route;
