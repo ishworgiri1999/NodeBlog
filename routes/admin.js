@@ -56,12 +56,12 @@ route.get("/posts/sucess", (req, res) => {
 
 route.get("/posts/delete", async (req, res) => {
   let posttodelete = req.query.pid;
-  if (!req.query.pid) return res.redirect("/admin/posts?notdefined=true");
+  if (!req.query.pid) return res.send(" post not defined");
   
   var success=0;
-  let query = await Post_m.findByIdAndDelete(posttodelete, (err,post)=>{
+  let query = await Post_m.findOneAndDelete({'_id': posttodelete}, (err,post)=>{
     if(err){
-      success=1;
+      success=0;
     }else{
       success=1
     }
